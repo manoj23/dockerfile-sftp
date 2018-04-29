@@ -1,0 +1,39 @@
+Port 22
+AddressFamily inet
+ListenAddress 0.0.0.0
+HostKey /etc/ssh/ssh_host_ed25519_key
+SyslogFacility AUTH
+LogLevel INFO
+PermitRootLogin no
+StrictModes yes
+MaxAuthTries 6
+MaxSessions 1
+HostbasedAuthentication no
+IgnoreUserKnownHosts yes
+IgnoreRhosts yes
+PasswordAuthentication no
+PermitEmptyPasswords no
+ChallengeResponseAuthentication yes
+AllowAgentForwarding no
+AllowTcpForwarding no
+GatewayPorts no
+X11Forwarding no
+PermitTTY no
+PrintMotd no
+TCPKeepAlive yes
+PermitUserEnvironment no
+Compression delayed
+ClientAliveInterval 0
+ClientAliveCountMax 3
+UseDNS no
+MaxStartups 10:30:100
+PermitTunnel no
+ChrootDirectory none
+VersionAddendum none
+Banner none
+Subsystem	sftp	internal-sftp
+
+Match User %USER%
+	AllowTcpForwarding no
+	PasswordAuthentication yes
+	ForceCommand internal-sftp
