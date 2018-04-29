@@ -42,11 +42,15 @@ Put in a folder:
 version: '3'
 services:
   sftp:
-    build: https://github.com:/manoj23/dockerfile-sftp.git
+    build:
+    context: https://github.com:/manoj23/dockerfile-sftp.git
     args:
-      UID: $(id -u)
-      USER: $(whoami)
-      PASSWORD_HASH: $(openssl passwd -1 -salt $RANDOM 1234sftp)
+      UID: 500
+      USER: batman
+      PASSWORD_HASH: "$$1$$21502$$9pCmk.3M64LxpmzD2ihVo/"
     volumes:
       - /path/to/sftp:/sftp
 ```
+
+The dollar signes in the PASSWORD_HASH should be escaped with a dollar.
+docker-compose does not handle inline bash as value.
