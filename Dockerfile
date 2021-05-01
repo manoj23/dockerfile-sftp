@@ -11,4 +11,4 @@ RUN apk update && apk add openssh-server \
  && echo "$USER:$PASSWORD_HASH::0:::::" >> /etc/shadow \
  && install -d -o $USER -g $USER /sftp \
  && sed -e "s/%USER%/$USER/g" -i /etc/ssh/sshd_config
-CMD ["/usr/sbin/sshd", "-D"]
+CMD ["/usr/sbin/sshd", "-D", "-e"]
