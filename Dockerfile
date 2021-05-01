@@ -1,4 +1,4 @@
-FROM alpine:3.7 as builder
+FROM alpine:3.13 as builder
 ARG USER=${USER:-anon}
 ARG UID=${UID:-1000}
 ARG PASSWORD_HASH=${PASSWORD_HASH:-!}
