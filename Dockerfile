@@ -6,6 +6,7 @@ ARG PASSWORD_HASH=${PASSWORD_HASH:-!}
 ARG DOCKERFILE_HASH
 LABEL maintainer="Georges Savoundararadj <savoundg@gmail.com>"
 ARG ALPINE_VERSION
+LABEL org.opencontainers.image.source="https://github.com/manoj23/dockerfile-sftp"
 LABEL alpine-version="${ALPINE_VERSION}"
 LABEL dockerfile-hash="${DOCKERFILE_HASH}"
 COPY sshd_config /etc/ssh/sshd_config
