@@ -1,11 +1,9 @@
-dockerfile-sftp
-===============
+# dockerfile-sftp
 
 This is a simple alpine container that runs an OpenSSH single-account sftp-only
 server.
 
-Example of docker build
-#######################
+## Example of docker build
 
 The build requires 3 build arguments:
 
@@ -37,15 +35,13 @@ Or, you can use the `build.sh` script as follow:
 This will build the docker image and upload to GitHub Container Registry.
 Please the script to use on your own Registry.
 
-Example of docker run
-#####################
+## Example of docker run
 
 ```bash
 docker run --rm -ti -v $PWD/sftp/:/sftp/ sftp
 ```
 
-Example of docker-compose.yml
-#############################
+## Example of docker-compose.yml
 
 Put in a folder:
 
