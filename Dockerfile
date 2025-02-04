@@ -10,7 +10,8 @@ LABEL org.opencontainers.image.source="https://github.com/manoj23/dockerfile-sft
 LABEL alpine-version="${ALPINE_VERSION}"
 LABEL dockerfile-hash="${DOCKERFILE_HASH}"
 COPY sshd_config /etc/ssh/sshd_config
-RUN apk update && apk add openssh-server \
+RUN apk update && apk add --no-cache openssh-sftp-server=9.9_p1-r2 \
+ && rm -rf /var/cache/apk/* \
  && ssh-keygen -t ed25519 -f /etc/ssh/ssh_host_ed25519_key -N "" \
  && echo "$USER:x:$UID:$UID::/sftp/:" >> /etc/passwd \
  && echo "$USER:x:$UID:" >> /etc/group \
