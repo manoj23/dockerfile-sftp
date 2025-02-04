@@ -4,6 +4,7 @@ set -e
 
 ALPINE_BUILDER_VERSION="3.21.0"
 USER="manoj23"
+USER_ID="500"
 REPO="sftp"
 DOCKERFILE_HASH=$(git rev-parse --short HEAD)
 BUILDER="alpine-${ALPINE_BUILDER_VERSION}"
@@ -16,6 +17,7 @@ docker_build_tag_and_push()
 	docker build "https://github.com:/${USER}/dockerfile-${REPO}.git" \
 		--build-arg "ALPINE_VERSION=${ALPINE_BUILDER_VERSION}" \
 		--build-arg "DOCKERFILE_HASH=${DOCKERFILE_HASH}" \
+		--build-arg "UID=${USER_ID}" \
 		-t "$TAG"
 
 	if [ -z "$CR_PAT" ]; then
