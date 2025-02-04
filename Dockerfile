@@ -11,6 +11,7 @@ LABEL alpine-version="${ALPINE_VERSION}"
 LABEL dockerfile-hash="${DOCKERFILE_HASH}"
 COPY sshd_config /etc/ssh/sshd_config
 RUN apk update \
+ && apk add --no-cache openssh-server=9.9_p1-r2 \
  && apk add --no-cache openssh-sftp-server=9.9_p1-r2 \
  && apk add --no-cache openssh-keygen=9.9_p1-r2 \
  && rm -rf /var/cache/apk/* \
