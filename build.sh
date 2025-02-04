@@ -12,12 +12,16 @@ BUILDER="alpine-${ALPINE_BUILDER_VERSION}"
 docker_build_tag_and_push()
 {
 	IMAGE="$1"
+	USERNAME="$2"
+	PASSWORD_HASH="$3"
 	TAG="${IMAGE}:${BUILDER}"
 
 	docker build "https://github.com:/${USER}/dockerfile-${REPO}.git" \
 		--build-arg "ALPINE_VERSION=${ALPINE_BUILDER_VERSION}" \
 		--build-arg "DOCKERFILE_HASH=${DOCKERFILE_HASH}" \
+		--build-arg "USER=${USERNAME}" \
 		--build-arg "UID=${USER_ID}" \
+		--build-arg "PASSWORD_HASH=${PASSWORD_HASH}" \
 		-t "$TAG"
 
 	if [ -z "$CR_PAT" ]; then
@@ -30,4 +34,29 @@ docker_build_tag_and_push()
 	docker push "ghcr.io/${USER}/${TAG}"
 }
 
-docker_build_tag_and_push "sftp"
+main()
+{
+	if ! command -v openssl > /dev/null; then
+		echo "Please install openssl, Bye!"
+		exit 1
+	fi
+
+	if [ -z "$1" ]; then
+		echo "Please pass the username as argument, Bye!"
+		exit 1
+	fi
+
+
+	if [ -z "$2" ]; then
+		echo "Please pass the password as argument, Bye!"
+		exit 1
+	fi
+
+	USERNAME="$1"
+	PASSWORD="$2"
+	PASSWORD_HASH="$(openssl passwd -6 -salt "$RANDOM" "$PASSWORD")"
+
+	docker_build_tag_and_push "sftp" "$USERNAME" "$PASSWORD_HASH"
+}
+
+main "$@"
